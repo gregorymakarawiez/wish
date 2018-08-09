@@ -1,0 +1,170 @@
+{% extends "dashboard/base_site.html" %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+
+{% block extra_css_files %}
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}" />
+{% endblock extra_css_files %}
+
+{% block extra_javascripts %}
+    <script src="{% static 'parsley-2.8.1/dist/parsley.min.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'validate/validate.min.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'js/signup3.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock extra_javascripts %}
+
+
+{% block title %} Create your account {% endblock title %}
+
+
+{% block body %}
+
+
+
+    <div class="container" style="margin: 10px"><div class="row"><div class="col-md-offset-3 col-md-6 col-xs-12  "><div class="x_panel">
+        <div class="x_title">
+            <h1>Create your account</h1>
+        </div>
+
+        <div class="x_content">
+        <br />
+
+        <!--<div class="bs-callout bs-callout-warning hidden">
+            <h4>Oh snap!</h4>
+            <p>This form seems to be invalid :(</p>
+        </div>
+
+        <div class="bs-callout bs-callout-info hidden">
+            <h4>Yay!</h4>
+            <p>Everything seems to be ok :)</p>
+        </div>-->
+
+
+        <!--<form id="signupForm" method="post" action="{% url 'account:signup' %}" class="form-horizontal form-label-left" data-parsley-validate="">-->
+        <form id="signup-form" method="post" action="{% url 'account:signup' %}" class="form-horizontal form-label-left" novalidate>
+            {% csrf_token %}
+
+
+            <!--{% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                        {{error}}
+                    {% endfor %}
+                </div>
+            {% endif %}-->
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.text_input_debug.label }}</label>
+                <div class="col-md-9 col-sm-9 col-xs-12" >{{ form.text_input_debug }}</div
+            </div>
+
+
+
+            <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
+                {{ form.first_name }}
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                {{ form.last_name }}
+                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            </div>
+
+            <br /> <br /> <br />
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.username.label }}</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {% if form.is_bound %}
+                        {% if form.username.errors %}
+                            {% render_field form.username class="form-control is-invalid" %}
+                            {% for error in form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        {% else %}
+                            {% render_field form.username class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field form.username class="form-control" %}
+                    {% endif %}
+
+                 </div>
+            </div>
+
+            <!--<div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.username.label }} </label>
+                <div class="col-md-9 col-sm-9 col-xs-12" data-parsley-trigger="change">{{ form.username }}</div>
+            </div>-->
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.password.label }} </label>
+                <!--<div class="col-md-9 col-sm-9 col-xs-12" data-parsley-trigger="change">{{ form.password }}</div>-->
+                <div class="col-md-9 col-sm-9 col-xs-12" >{{ form.password }}</div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.email.label }} </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">{{ form.email }}</div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.unit.label }}</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form.unit }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.manager.label }}</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form.manager }}
+                </div>
+            </div>
+
+
+            <div class="form-group ">
+                <label class="col-md-3 col-sm-3 col-xs-12 control-label"> I manage </label>
+
+                <div class="col-offset-md-2 col-md-9 col-sm-9 col-xs-12">
+                    <div class="row">
+                        {{ form.is_manager }} a team
+                    </div>
+                    <div class="row">
+                        {{ form.is_continuous_improvement_officer }} continuous improvement
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.subscribed_to_newsletter.label }}</label>
+                <div class="col-offset-1 col-md-1 col-sm-1 col-xs-1">
+                    {{ form.subscribed_to_newsletter }}
+                </div>
+            </div>
+
+
+
+            <div class="ln_solid"></div>
+                 <button id="submit-button" type="submit" name="to_signin" value="signup" class="btn btn-success pull-right" onsubmit="event.preventDefault(); validateForm();">Submit</button>
+                 <button id="cancel-button"  type="cancel" name="to_signup" value="signup" class="btn btn-primary pull-right" >Cancel</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+{% endblock body %}
+
+
+
+

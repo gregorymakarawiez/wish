@@ -1,0 +1,68 @@
+<textarea name="{{name}}" style="display:none;">{{value}} </textarea>
+<input name="{{name}}_date_picker" type="text" >
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript" >
+    $(document).ready( function() {
+
+        // create handle to DOM hidden textarea
+        var textarea_{{name}} = $('textarea[name={{name}}]'); // hidden textarea to save date content
+
+        // create handle to DOM input field
+        var input_{{name}} = $('input[name={{name}}_date_picker]');
+
+
+        function addPoint(date_without_point){
+            var dateParts=date_without_point.split(" ");
+            var month=dateParts[0];
+            var day=dateParts[1];
+            day=day.substring(0,day.length-1);
+            var year=dateParts[2];
+            var date_with_point=month+". "+day+", "+year;
+            return date_with_point;
+        }
+        function removePoint(date_with_point){
+            var dateParts=date_with_point.split(" ");
+            var month=dateParts[0];
+            month=month.substring(0,month.length-1)
+            var day=dateParts[1];
+            day=day.substring(0,day.length-1);
+            var year=dateParts[2];
+            var date_without_point=month+" "+day+", "+year;
+            return date_without_point;
+        }
+
+
+
+        // add date picker to input field
+        input_{{name}}.datepicker(
+            { dateFormat: "MM d, yy",
+        //      minDate: min_date,
+        //      maxDate: max_date,
+              onSelect: function(){
+                  var  date = input_{{name}}.val();
+                  textarea_{{name}}.val(date);
+              }
+            }
+        );
+
+        // on page loading, get db saved content that django has restored into DOM hidden textarea
+        var init_date= textarea_{{name}}.text();
+        init_date=removePoint(init_date);
+        textarea_{{name}}.val(init_date)
+        input_{{name}}.datepicker("setDate",new Date(init_date));
+        input_{{name}}.datepicker("option", "defaultDate",new Date(init_date));
+
+        // to make the widget readonly, set attribute 'disabled' to 'disabled'
+        //var disabled_ = '{{disabled}}';
+
+        //if (disabled_=='disabled'){
+        //    input_{{name}}.attr('readonly','readonly');
+        //}
+
+
+    });
+</script>
+

@@ -1,0 +1,11 @@
+ul {
+    list-style:none;
+    padding-left:0;
+}
+
+input{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+}

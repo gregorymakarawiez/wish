@@ -1,0 +1,204 @@
+{% extends "base_site.html" %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+
+{% block extra_css_files %}
+  <link href="{% static "css/signup.css" %}" rel="stylesheet">
+{% endblock extra_css_files %}
+
+{% block extra_javascripts %}
+{% endblock extra_javascripts %}
+
+
+{% block title %} Create your account {% endblock title %}
+
+
+{% block body %}
+
+
+
+    <div class="container" style="margin: 10px"><div class="row"><div class="col-md-offset-3 col-md-6 col-xs-12  "><div class="x_panel">
+        <div class="x_title">
+            <h1>Create your account</h1>
+        </div>
+
+        <div class="x_content">
+
+
+            <form id="signupForm" method="post" action="{% url 'account:signup' %}" class="form-horizontal form-label-left" novalidate>
+                {% csrf_token %}
+
+                </br>
+                </br>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.first_name.label }}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.first_name.errors %}
+                                {% render_field form.first_name class="form-control is-invalid" %}
+                                {% for error in form.first_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.first_name class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.first_name class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.last_name.label }}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.last_name.errors %}
+                                {% render_field form.last_name class="form-control is-invalid" %}
+                                {% for error in form.last_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.last_name class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.last_name class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.username.label }}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.username.errors %}
+                                {% render_field form.username class="form-control is-invalid" %}
+                                {% for error in form.username.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.username class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.username class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.password.label }} </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.password.errors %}
+                                {% render_field form.password class="form-control is-invalid" %}
+                                {% for error in form.password.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% render_field form.password class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.password class="form-control" %}
+                        {% endifequal %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.email.label }} </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.email.errors %}
+                                {% render_field form.email class="form-control is-invalid" %}
+                                {% for error in form.email.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% render_field form.email class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.email class="form-control" %}
+                        {% endifequal %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.unit.label }}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.unit.errors %}
+                                {% render_field form.unit class="form-control is-invalid" %}
+                                {% for error in form.unit.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.unit class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.unit class="form-control" %}
+                        {% endifequal %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.manager.label }}</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        {{ form.manager }}
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <label class="col-md-3 col-sm-3 col-xs-12 control-label"> I manage </label>
+
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                       {{ form.is_manager }} a team
+                        {{ form.is_continuous_improvement_officer }} continuous improvement
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.subscribed_to_newsletter.label }}</label>
+                    <div class="col-offset-1 col-md-1 col-sm-1 col-xs-1">
+                        {{ form.subscribed_to_newsletter }}
+                    </div>
+                </div>
+
+
+                <div class="form-group ln_solid"></div>
+                     <button id="submit-button" type="submit" name="submit" value="signup" class="btn btn-success pull-right" >Submit</button>
+                     <button id="cancel-button"  type="cancel" name="cancel" value="signup" class="btn btn-primary pull-right" >Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div></div></div></div>
+
+
+
+{% endblock body %}
+
+
+
+

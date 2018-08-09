@@ -1,0 +1,51 @@
+{% extends "dashboard/base_site.html" %}
+
+
+
+<!--{% block stylesheets %}
+  {{ block.super }}
+  <!-- Animate.css -->
+  <!-- <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">-->
+<!-- {% endblock stylesheets %}-->
+
+{% block body_class %}login{% endblock body_class %}
+
+{% block body %}
+
+
+<!--  <div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+            {% block signin %}  {% endblock signin %}
+        </section>
+      </div>
+
+      <!<div id="register" class="animate form registration_form">
+        <section class="login_content">
+            {% block signup %}  {% endblock signup %}
+        </section>
+      </div>
+    </div>
+  </div>-->
+
+
+  <div>
+    <!--<a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>-->
+
+    <div class="login_wrapper">
+      <div class="form login_form">
+        <section class="login_content">
+            {% block login %}  {% endblock login %}
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock body %}
+

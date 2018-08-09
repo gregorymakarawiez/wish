@@ -1,0 +1,50 @@
+{% extends "form_wizard.html" %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="{% static "css/validate_task.css" %}" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block wizard_page %}
+
+
+
+    <form id="SubmitTaskForm" method="post" action="{% url 'task:edit_wizard' pk=pk page=3 %}" class="form-horizontal form-label-left" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12">{{ form.approver.label }}</label>
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                {% ifequal request.method "POST" %}
+                    {% if form.approver.errors %}
+                        {% render_field form.approver class="form-control is-invalid" %}
+                        {% for error in form.approver.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+                        {% render_field form.approver class="form-control is-valid" %}
+                    {% endif %}
+                {% else %}
+                    {% render_field form.approver class="form-control" %}
+                {% endifequal %}
+            </div>
+        </div>
+
+    </form>
+</div>
+
+{% endblock wizard_page %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+
+

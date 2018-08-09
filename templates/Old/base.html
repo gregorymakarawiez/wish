@@ -1,0 +1,52 @@
+
+
+{% load staticfiles %}
+
+
+
+<html>
+    <head>
+        <title>Wish</title>
+
+
+       {% block extra_js_files %}
+           <script src="{% static 'base/js/navigation_bar.js' %}" ></script>
+       {% endblock %} 
+
+
+       {% block extra_css_files %}
+            <link rel="stylesheet" type="text/css" href="{% static 'base/css/navigation_bar.css' %}" />
+       {% endblock %} 
+    </head>
+
+
+    <body>
+       {% include "navigation_bar.html" %}
+
+       <section id="main_window">
+            <article class="row content container">
+                {% block content %}
+                {% endblock %}
+            </article>
+       </section>
+ 
+
+    	<div class="footer">
+ 
+	        {% block footer %}
+       	    {% endblock %}
+
+    	</div>
+   
+    </body>
+
+
+    <script>
+       {% block extra_javascript %}
+       {% endblock %} 
+    </script>
+
+</html> 
+
+
+

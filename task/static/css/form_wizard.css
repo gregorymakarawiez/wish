@@ -1,0 +1,33 @@
+
+.wizard_horizontal ul.wizard_steps li a:before {
+    content: "";
+    position: absolute;
+    height: 4px;
+    background: #ccc;
+    top: 20px;
+    width: 100%;
+    z-index: 4;
+}
+
+.wizard_horizontal ul.wizard_steps li:first-child a:after {
+    width: 50%;
+    right: 0%;
+}
+.wizard_horizontal ul.wizard_steps li:last-child a:before {
+    width: 50%;
+    left: 0%;
+}
+
+.x_panel {
+    display: inline-block;
+    margin: 10px;
+}
+
+.x_title h2, h4 {
+    margin: 5px 0 6px;
+    float: left;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

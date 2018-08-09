@@ -1,0 +1,95 @@
+{% extends 'base_site.html' %}
+
+{% load custom_filters %}
+
+
+{% block title %} List tasks {% endblock title %}
+
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/dashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/dashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/dashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/dashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/dashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+
+    <div class="x_panel">
+        <div class="x_title">
+            <ul class="nav navbar-left panel_toolbox">
+                <li><h1>Tasks<a href="{% url 'task:create' %}"> <span class="glyphicon glyphicon-plus"></span></a></h1></li>
+            </ul>
+        </div>
+        <div class="x_content">
+
+            {% if tasks %}
+
+                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Idea</th>
+                            <th>Status</th>
+                            <th>Creator</th>
+                            <th>Created on</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+              {% for task in tasks %}
+                  {% with state_minus_1=task.state|add:"-1" %}
+                  {% with state=state_choices|index:state_minus_1|index:1 %}
+                        <tr>
+                            <td><a href="{% url 'task:edit_wizard' pk=task.pk page=1 %}">{{task.headline}}</a></td>
+                            <td><a href="#">{{state}}</a></td>
+                            <td><a href="#">{{task.creator.user.get_username}}</a></td>
+                            <td><a href="#">{{task.creation_date}}</a></td>
+                            <td><a href="{% url 'task:delete' task.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        </tr>
+                  {% endwith %}
+                  {% endwith %}
+              {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                No idea has been submitted
+            {% endif %}
+
+        </div>
+    </div>
+
+
+{% endblock content%}
+
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <script src="/static/dashboard/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/static/dashboard/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="/static/dashboard/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/static/dashboard/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/static/dashboard/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    $(document).ready(function(){
+        $('#list').DataTable();
+    });
+
+{% endblock javascripts %}

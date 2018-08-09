@@ -1,0 +1,38 @@
+{% extends "form_wizard.html" %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="{% static "css/validate_task.css" %}" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block wizard_page %}
+
+
+
+    <form id="ApproveTaskForm" method="post" action="{% url 'task:edit_wizard' pk=pk page=4 %}" class="form-horizontal form-label-left" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <p style="text-align:center;">
+
+                {{ form.approved}}
+                <label>{{ form.approved.label }}</label>
+
+            </p>
+        </div>
+
+    </form>
+</div>
+
+{% endblock wizard_page %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+
+

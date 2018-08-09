@@ -1,0 +1,40 @@
+<div class="left_col scroll-view">
+  <div class="navbar nav_title" style="border: 0;">
+    <a href="{% url 'task:list' %}" class="site_title"><i class="fa fa-lightbulb-o"></i> <span>Wish</span></a>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <!-- menu profile quick info -->
+  <div class="profile clearfix">
+    <div class="profile_pic">
+      <img src="/static/dashboard/images/businessman.png" alt="..." class="img-circle profile_img">
+    </div>
+    <div class="profile_info">
+      {% if user.is_authenticated %}
+          <span>Welcome, {{user.get_username}}</span>
+      {% endif %}
+    </div>
+  </div>
+  <!-- /menu profile quick info -->
+
+  <br />
+
+  <!-- sidebar menu -->
+  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+      <h3>General</h3>
+      <ul class="nav side-menu">
+        <li><a><i class="fa fa-home"></i> Tasks <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{% url 'task:list' %}">List</a></li>
+            <li><a href="{% url 'task:create' %}">Create</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /sidebar menu -->
+
+
+</div>

@@ -1,0 +1,68 @@
+<textarea name="{{name}}" style="display:none;"> {{value}} </textarea>
+
+<div id="{{name}}_editor" class="quill_editor">
+    <div id="{{name}}_toolbar"></div>
+    <div id="{{name}}_content"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // to make the widget readonly, set attribute 'disabled' to 'disabled'
+        var disabled_ = '{{disabled}}';
+
+        if (disabled_=='disabled'){
+            var read_only=true;
+        }
+        else{
+            var read_only=false;
+        }
+
+
+        // instantiate quill editor
+        var quill_{{name}} = new Quill('#{{name}}_content',{ // ace editor
+            modules:{
+                toolbar:[
+                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                    [{ 'align': [] }]
+                ],
+            },
+            placeholder: '{{placeholder}}',
+            readOnly: read_only,
+            theme: 'snow'
+        });
+
+        // create handle to DOM hidden textarea
+        var textarea_{{name}} = $('textarea[name="{{name}}"]'); // hidden textarea to save editor content
+
+        // on page loading, get db saved content that django has restored into DOM hidden textarea
+        var insert_text=textarea_{{name}}.val();
+        if (insert_text==' None '){
+           insert_text='{}';
+        }
+
+        try{
+            var insert_json=JSON.parse(insert_text);
+        }
+        catch(e){
+            console.error("Parsing error:", e);
+        }
+
+        quill_{{name}}.setContents(insert_json); // on DOM loading, copy hidden textarea content into quill editor
+        quill_{{name}}.on("text-change", function () {
+            var save_json=quill_{{name}}.getContents() ;
+            var save_txt=JSON.stringify(save_json);
+            textarea_{{name}}.val(save_txt); // whenever quill editor content change, copy change back into hidden textarea
+
+        });
+
+
+    });
+
+</script>

@@ -1,0 +1,100 @@
+
+
+{% extends "base_site.html" %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    {{ form.media.css }}
+    <link href="{% static "css/form_wizard.css" %}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block title %} Edit task {% endblock title %}
+
+
+{% block content %}
+
+    <div class="container" style="margin: 10px"><div class="row"><div class="col-md-offset-2 col-md-8 col-xs-12  "><div class="x_panel">
+
+        <div class="x_content">
+
+            <form id="EditTaskForm" method="post" action="{% url 'task:edit_wizard' pk=pk page=page %}" class="form-horizontal form-label-left" novalidate>
+                {% csrf_token %}
+
+                {% block form_wizard %}
+
+                    <div class="row">
+
+                        <div class="x_title">
+                            <h2>Edit task </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                        <!-- Smart Wizard -->
+
+                            <div id="wizard" class="form_wizard wizard_horizontal">
+
+                                <ul class="wizard_steps anchor">
+                                    {% with sorted_wizard_titles=wizard_titles|sort_dict %}
+                                    {% for  page_id, page_title in sorted_wizard_titles %}
+                                        <li>
+                                            {% if page_id == page %}
+                                                <a class="selected" href="{% url 'task:edit_wizard' pk=pk page=page_id %}" isdone="1" rel={{page_id}}>
+                                            {% else %}
+                                                {%  if page_id <= state %}
+                                                    <a class="done" href="{% url 'task:edit_wizard' pk=pk page=page_id %}" isdone="1" rel={{page_id}}>
+                                                {% else %}
+                                                    <a class="disabled" href="{% url 'task:edit_wizard' pk=pk page=page_id %}" isdone="0" rel={{page_id}}>
+                                                {% endif %}
+                                            {% endif %}
+
+                                                    <span class="step_no">{{page_id}}</span>
+                                                    <span class="step_descr">
+                                                        {{page_title}}<br />
+                                                    </span>
+                                                </a>
+                                        </li>
+                                    {% endfor %}{% endwith %}
+
+                                </ul>
+
+                                <br></br>
+
+                                <div class="stepContainer">
+                                    {% block wizard_page %}
+                                    {% endblock wizard_page %}
+                                </div>
+
+                                <div class="actionBar">
+                                    <button id="submit-button" type="submit" name="submit" value="edit_task" class="btn btn-success pull-right" >Submit</button>
+                                    <button id="cancel-button"  type="cancel" name="cancel" value="edit_task" class="btn btn-primary pull-right" >Cancel</button>
+                                </div>
+                            <!-- End SmartWizard Content -->
+                            </div>
+                        </div>
+                    </div>
+
+                {% endblock form_wizard %}
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock javascripts %}
+
+
+
+
+
+
+
+

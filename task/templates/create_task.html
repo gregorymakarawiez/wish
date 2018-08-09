@@ -1,0 +1,129 @@
+{% extends "base_site.html" %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock stylesheets %}
+
+
+
+{% block title %} Create your account {% endblock title %}
+
+
+{% block content %}
+
+    <div class="container" style="margin: 10px"><div class="row"><div class="col-md-offset-2 col-md-8 col-xs-12  "><div class="x_panel">
+        <div class="x_title">
+            <h1>Propose your idea</h1>
+        </div>
+
+        <div class="x_content">
+
+
+            <form id="CreateTaskForm" method="post" action="{% url 'task:create' %}" class="form-horizontal form-label-left" novalidate>
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{ form.headline.label }}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.headline.errors %}
+                                {% render_field form.headline class="form-control is-invalid" %}
+                                {% for error in form.headline.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.headline class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.headline class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{ form.problem.label }}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.problem.errors %}
+                                {% render_field form.problem class="form-control is-invalid" %}
+                                {% for error in form.problem.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.problem class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.problem class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{ form.proposal.label }}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.proposal.errors %}
+                                {% render_field form.proposal class="form-control is-invalid" %}
+                                {% for error in form.proposal.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.proposal class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.proposal class="form-control" %}
+                        {% endifequal %}
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{ form.validator.label }}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        {% ifequal request.method "POST" %}
+                            {% if form.validator.errors %}
+                                {% render_field form.validator class="form-control is-invalid" %}
+                                {% for error in form.validator.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {% render_field form.validator class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field form.validator class="form-control" %}
+                        {% endifequal %}
+                    </div>
+                </div>
+
+                <div class="form-group ln_solid"></div>
+                     <button id="submit-button" type="submit" name="submit" value="create_task" class="btn btn-success pull-right" >Submit</button>
+                     <button id="cancel-button"  type="cancel" name="cancel" value="create_task" class="btn btn-primary pull-right" >Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div></div></div></div>
+
+
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock javascripts %}
