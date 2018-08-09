@@ -34,7 +34,6 @@ MY_APPS = [
     'Wish',
     'account',
     'task',
-    'msg',
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
